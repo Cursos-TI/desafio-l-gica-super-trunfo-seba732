@@ -111,81 +111,105 @@ int main() {
     printf("A pontuação da carta 1: %.2lf\n", superPoder);
     printf("A pontuação da carta 2: %.2lf\n", superPoder2);
 
-    // Compara a população das duas cidades
-    if (populacao > populacao2){
-        printf("vencedor em populçao: %s\n", cidade); // Imprime o nome da cidade com maior população
-    }
-    else if (populacao < populacao2) {
-        printf("Vencedor em População: %s\n ", cidade2); // Imprime o nome da segunda cidade se ela tiver maior população
-    }
-    else{
-        printf("Empate em População \n"); // Se as populações forem iguais, imprime que houve empate
-    }
+int ataque; //Declaração da variável ataque, que será usada para armazenar a escolha do jogador (de 1 a 7).
+char jogarNovamente; //A variável jogarNovamente é usada para saber se o jogador quer repetir o ataque com as mesmas cartas.
 
-    // Compara a área das duas cidades
-    if (area > area2){
-        printf("Vencedor em Area: %s\n", cidade); // Imprime a cidade com maior área
-    }
-    else if (area < area2){
-        printf("vencedor em Area: %s\n", cidade2); // Imprime a segunda cidade se ela tiver maior área
-    }
-    else{
-        printf("Empate em Area \n"); // Imprime empate caso as áreas sejam iguais
-    }
 
-    // Compara o PIB total das cidades
-    if (pib > pib2){
-        printf("Vencedor em PIB: %s\n", cidade); // imprime Cidade com maior PIB
-    }
-    else if (pib < pib2){
-        printf("vencedor em PIB: %s\n", cidade2); // Imprime a segunda cidade se ela tiver com maior PIB
-    }
-    else{
-        printf("Empate em PIB \n"); // Empate em PIB
-    }
-        // Compara a quantidade de pontos turísticos
-    if (pontoturistico > pontoturistico2){
-        printf("Vencedor em Pontos Turisticos: %s\n", cidade); // Cidade com mais pontos turísticos
-    }
-    else if (pontoturistico < pontoturistico2){
-        printf("vencedor em Pontos Turisticos: %s\n", cidade2); // Segunda cidade com mais pontos turísticos
-    }
-    else{
-        printf("Empate em Pontos Turisticos \n"); //Empate em Pontos turisticos 
-    }
+//Início de um laço do...while que garante que o jogador poderá fazer ao menos um ataque antes de decidir sair.
+do {
+printf("## Super Trunfo Logica ##\n"); //Exibe o nome do Jogo.
+printf("Escolha uma opção de Ataque:\n"); //Exibe o menu de opções para o jogador escolher qual atributo deseja usar para o ataque. 
+printf("1. Ataque população\n");
+printf("2. Ataque área\n");
+printf("3. Ataque PIB\n");
+printf("4. Ataque Ponto Turístico\n");
+printf("5. Ataque Densidade\n");
+printf("6. Ataque PIB per capita\n");
+printf("7. Ataque Super poder\n");
+printf("Digite o número da opção: ");
+scanf("%d", &ataque);  //O valor digitado é armazenado na variável ataque.
 
-    // Compara a densidade demográfica (o critério é densidade MENOR)
-     if (densidade < densidade2){
-        printf("Vencedor em Dencidade: %s\n", cidade); // Cidade com menor densidade vence (mais espaço por pessoa)
-    }
-    else if (densidade > densidade2){
-        printf("vencedor em Densidade: %s\n", cidade2); // Segunda cidade tem menor densidade
-    }
-    else{
-        printf("Empate em Densidade \n"); //Empate em densidade 
-    }
 
-    // Compara o PIB per capita
-     if (pibpercapita > pibpercapita2){
-        printf("Vencedor em PIB Per capita: %s\n", cidade); // Cidade com maior PIB per capita
-    }
-    else if (pibpercapita < pibpercapita2){
-        printf("vencedor em PIB Per capita: %s\n", cidade2);  // Se a Segunda cidade com maior PIB per capita
-    }
-    else{
-        printf("Empate em PIB Per capita \n");  // Empate em PIB per capita
-    }
+switch (ataque) {   // O switch avalia o valor de ataque e executa o bloco correspondente.
+    case 1: //Cada case trata um atributo diferente das cartas.
+        printf("Ataque população:\n"); 
+        if (populacao > populacao2) //Se o jogador escolheu o ataque de população, o código compara a população da carta 1 com a da carta 2.
+            printf("Carta 1 venceu! %s\n", cidade); //Imprime o nome da cidade vencedora ou "Empate".
+        else if (populacao < populacao2) 
+            printf("Carta 2 venceu! %s\n", cidade2); //Imprime o nome da cidade vencedora ou "Empate".
+        else
+            printf("Empate!\n"); //Imprime "Empate".
+        break;
 
-    // Compara a pontuação geral (superPoder) de cada cidade
-    if (superPoder > superPoder2){
-        printf("Venceu a cidade: %s\n", cidade); // Cidade com maior pontuação geral vence
-    }
-    else if (superPoder < superPoder2){
-        printf("A Vencedora com mais Pontos foi a Cidade: %s\n", cidade2); // Segunda cidade vence no total
-    }
-    else{
-        printf("Empate na Soma total "); // Empate na soma total de pontos
-    }
+    case 2:
+        printf("Ataque área:\n");
+        if (area > area2)
+            printf("Carta 1 venceu! %s\n", cidade);
+        else if (area < area2)
+            printf("Carta 2 venceu! %s\n", cidade2);
+        else
+            printf("Empate!\n");
+        break;
+
+    case 3:
+        printf("Ataque PIB:\n");
+        if (pib > pib2)
+            printf("Carta 1 venceu! %s\n", cidade);
+        else if (pib < pib2)
+             printf("Carta 2 venceu! %s\n", cidade2);
+        else
+            printf("Empate!\n");
+        break;
+
+    case 4:
+        printf("Ataque Ponto Turístico:\n");
+        if (pontoturistico > pontoturistico2)
+            printf("Carta 1 venceu! %s\n", cidade);
+        else if (pontoturistico < pontoturistico2)
+            printf("Carta 2 venceu! %s\n", cidade2);
+        else
+            printf("Empate!\n");
+        break;
+
+    case 5:
+        printf("Ataque Densidade (menor é melhor!):\n");
+        if (densidade < densidade2) //nesse, o menor valor vence)
+            printf("Carta 1 venceu! %s\n", cidade);
+        else if (densidade > densidade2)  //nesse, o menor valor vence)
+            printf("Carta 2 venceu! %s\n", cidade2);
+        else
+            printf("Empate!\n");
+        break;
+
+    case 6:
+        printf("Ataque PIB per capita:\n");
+        if (pibpercapita > pibpercapita2)
+            printf("Carta 1 venceu! %s\n", cidade);
+        else if (pibpercapita < pibpercapita2)
+             printf("Carta 2 venceu! %s\n", cidade2);
+        else
+            printf("Empate!\n");
+        break;
+
+    case 7:
+        printf("Ataque Super Poder:\n");
+        if (superPoder > superPoder2)
+            printf("Carta 1 venceu! %s\n", cidade);
+        else if (superPoder < superPoder2)
+             printf("Carta 2 venceu! %s\n", cidade2);
+        else
+            printf("Empate!\n");
+        break;
+
+    default:
+        printf("Opção inválida.\n"); //Caso o jogador digite um número fora do intervalo de 1 a 7, exibe mensagem de erro.
+
+}
+
+printf("\nDeseja escolher outro ataque com as mesmas cartas? (S/N):\n");
+    scanf(" %c", &jogarNovamente);
+   //Após cada ataque, o jogador pode decidir repetir a comparação com as mesmas cartas (sem gerar novas).
+}while (jogarNovamente == 'S' || jogarNovamente == 's'); // Pesquisei essa função para ter que ficar digitando tudo outra vez
 
 
 
