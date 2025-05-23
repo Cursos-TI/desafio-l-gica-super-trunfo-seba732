@@ -113,19 +113,19 @@ int main() {
 
 int ataque; //Declaração da variável ataque, que será usada para armazenar a escolha do jogador (de 1 a 7).
 char jogarNovamente; //A variável jogarNovamente é usada para saber se o jogador quer repetir o ataque com as mesmas cartas.
-
-
-//Início de um laço do...while que garante que o jogador poderá fazer ao menos um ataque antes de decidir sair.
-do {
+ do{
+//Início de um laço do...while que garante que o jogador repeta a jogada com a mesma carta.
+// Pesquisei sobre loops para não precisar repetir tudo em cada teste.
 printf("## Super Trunfo Logica ##\n"); //Exibe o nome do Jogo.
 printf("Escolha uma opção de Ataque:\n"); //Exibe o menu de opções para o jogador escolher qual atributo deseja usar para o ataque. 
-printf("1. Ataque população\n");
+printf("1. Ataque população\n"); 
 printf("2. Ataque área\n");
 printf("3. Ataque PIB\n");
 printf("4. Ataque Ponto Turístico\n");
 printf("5. Ataque Densidade\n");
 printf("6. Ataque PIB per capita\n");
 printf("7. Ataque Super poder\n");
+printf("8. ataque combinado\n");
 printf("Digite o número da opção: ");
 scanf("%d", &ataque);  //O valor digitado é armazenado na variável ataque.
 
@@ -201,22 +201,88 @@ switch (ataque) {   // O switch avalia o valor de ataque e executa o bloco corre
             printf("Empate!\n");
         break;
 
-    default:
-        printf("Opção inválida.\n"); //Caso o jogador digite um número fora do intervalo de 1 a 7, exibe mensagem de erro.
+     case 8: // criei a opção de ataque combinado, jogador tera a escolha de combinar os atributos de ataque 
+        printf("Ataque Combinado!\n");
+        printf("Escolha dois atributos para combinar:\n"); // Pesquisei para tornar mais limpo, estava com muita lishas para o menu opçoes 
+        printf("1. População\n2. Área\n3. PIB\n4. Pontos Turísticos\n5. Densidade (menor é melhor)\n6. PIB per capita\n");
 
+        int atributo1, atributo2;  // Iniciei essas caixas para armazenar a opção de escolha do jogador 
+        printf("Digite o número do primeiro atributo: "); // Peço para digitar o atributo 1
+        scanf("%d", &atributo1);
+        printf("Digite o número do segundo atributo: "); // Peço para digitar o atributo 2
+        scanf("%d", &atributo2); 
+
+    
+    if (atributo1 == atributo2) { // Nao sei de foi a melhor opção mais evita repetir o atributo. 
+        printf("Os atributos devem ser diferentes!\n"); // Mostra informação que precisa ser atributos diferentes 
+        break;
+    }
+
+    float valor1 = 0, valor2 = 0; // essas duas variáveis vão armazenar a soma dos atributos escolhidos para cada carta
+
+    // Pega o valor do primeiro atributo da carta  
+    // Se digitar 1 valor1  assume  o numero que esta registrado em populaçao na primeira carta, e o valor2 assume a população da segunda carta,
+    if (atributo1 == 1) { valor1 += populacao; valor2 += populacao2; } // soma população com segundo atributo 
+    if (atributo1 == 2) { valor1 += area; valor2 += area2; } // segue a mesma logica para area
+    if (atributo1 == 3) { valor1 += pib; valor2 += pib2; } // segue a mesma logica para PIB
+    if (atributo1 == 4) { valor1 += pontoturistico; valor2 += pontoturistico2; } // segue a mesma logica para pontos turisticos 
+    if (atributo1 == 5) { valor1 += 1.0 / densidade; valor2 += 1.0 / densidade2; } // segue a mesma logica para densidade, porem invertida pois a regra é quanto menor melhor 
+    if (atributo1 == 6) { valor1 += pibpercapita; valor2 += pibpercapita2; } // segue a mesma logica para area
+
+    // Pega o valor do segundo atributo da carta 1 da carta 2
+    // Achei mais limpo separar por linhas 
+    // Se digitar 1, valor1 a assume  o numero que esta registrado em populaçao na primeira carta, e o valor2 assume a população da segunda carta,
+    if (atributo2 == 1) { valor1 += populacao; valor2 += populacao2; } // soma população com primeiro atributo
+    if (atributo2 == 2) { valor1 += area; valor2 += area2; } // segue a mesma logica para area
+    if (atributo2 == 3) { valor1 += pib; valor2 += pib2; } //segue a mesma logica para PIB
+    if (atributo2 == 4) { valor1 += pontoturistico; valor2 += pontoturistico2; } // segue a mesma logica para pontos turisticos 
+    if (atributo2 == 5) { valor1 += 1.0 / densidade; valor2 += 1.0 / densidade2; } // segue a mesma logica para densidade, porem invertida pois a regra é quanto menor melhor 
+    if (atributo2 == 6) { valor1 += pibpercapita; valor2 += pibpercapita2; } // segue a mesma logica para PIB percapta
+
+    // Compara os resultados e mostra quem vencedor 
+    printf("#### Detalhes do ataque combinado ####\n");
+    if (valor1 > valor2) // se valor1 for maior que valor2, carta 1 venceu exibe a cidade 
+        printf("Carta 1 venceu! %s\n", cidade);
+    else if (valor1 < valor2) // // se valor1 for menor que valor2, carta 2 venceu exibe a cidade 
+        printf("Carta 2 venceu! %s\n", cidade2);
+    else
+        printf("Empate!\n"); //exibe empate 
+       
+    printf("A soma dos atributos da cidade: (%s): %.2f\n", cidade, valor1); //imprimi a primeira cidade e a soma dos atributos dela 
+    printf("A soma dos atributos da segunda cidade (%s): %.2f\n", cidade2, valor2); //imprimi a  segunda cidade e a soma dos atributos dela 
+    printf("os atributos escolhidos sao:\n"); //mostra os atributos 
+
+    printf("Atributo 1: ");
+if (atributo1 == 1) printf("População\n"); // se digitar 1 populçao 
+else if (atributo1 == 2) printf("Área\n"); // se digitar 2 area 
+else if (atributo1 == 3) printf("PIB\n"); // se digitar 3 PIB 
+else if (atributo1 == 4) printf("Pontos turísticos\n"); // se digitar 4 Pontos turisticos  
+else if (atributo1 == 5) printf("Densidade (menor é melhor)\n"); // se digitar 5 densidade  
+else if (atributo1 == 6) printf("PIB per capita\n"); // se digitar 6 PIB per capita 
+else printf("Inválido\n");
+
+    printf("Atributo 2: ");  // segue a mesma logica 
+if (atributo2 == 1) printf("População\n");
+else if (atributo2 == 2) printf("Área\n");
+else if (atributo2 == 3) printf("PIB\n");
+else if (atributo2 == 4) printf("Pontos turísticos\n");
+else if (atributo2 == 5) printf("Densidade (menor é melhor)\n");
+else if (atributo2 == 6) printf("PIB per capita\n");
+else printf("Inválido\n");
+
+break;
+
+    default:
+        printf("Opção inválida.\n"); //Caso o jogador digite um número fora do intervalo de 1 a 8, exibe mensagem de erro.
 }
 
 printf("\nDeseja escolher outro ataque com as mesmas cartas? (S/N):\n");
     scanf(" %c", &jogarNovamente);
    //Após cada ataque, o jogador pode decidir repetir a comparação com as mesmas cartas (sem gerar novas).
-}while (jogarNovamente == 'S' || jogarNovamente == 's'); // Pesquisei essa função para ter que ficar digitando tudo outra vez
+}while(jogarNovamente == 'S' || jogarNovamente == 's'); // Pesquisei essa função de reptição para ter que ficar digitando tudo outra vez
 
 
+return 0;   
 
-    return 0; //finaliza o programa 
-
-
-
+  
 }
-
-
